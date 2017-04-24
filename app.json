@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "#546e7a",
+    "navigationBarTitleText": "冰与火世界",
+    "navigationBarTextStyle":"white"
+  }
+}

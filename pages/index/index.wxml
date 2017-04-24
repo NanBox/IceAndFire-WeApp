@@ -1,0 +1,22 @@
+
+<!--index.wxml-->
+<view class="tab">
+  <view class="tab-item {{currentTab==0 ? 'tab-on' : 'tab-off'}}" data-current="0" bindtap="swichNav">人物</view>
+  <view class="tab-item {{currentTab==1 ? 'tab-on' : 'tab-off'}}" data-current="1" bindtap="swichNav">家族</view>
+  <view class="tab-item {{currentTab==2 ? 'tab-on' : 'tab-off'}}" data-current="2" bindtap="swichNav">历史</view>
+  <view class="tab-item {{currentTab==3 ? 'tab-on' : 'tab-off'}}" data-current="3" bindtap="swichNav">城堡</view>
+</view>
+
+
+<view class=" {{currentTab==0?'show':'hide'}}">
+  <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
+    <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="j">
+      <view wx:if="{{i <= j}}">
+        {{i}} * {{j}} = {{i * j}}
+      </view>
+    </view>
+  </view>
+</view>
+<view class="{{currentTab==1?'show':'hide'}}">家族</view>
+<view class="{{currentTab==2?'show':'hide'}}">历史</view>
+<view class="{{currentTab==3?'show':'hide'}}">城堡</view>

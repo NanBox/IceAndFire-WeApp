@@ -1,0 +1,37 @@
+/**index.wxss**/
+
+page {
+  background-color: white;
+}
+
+.tab {
+  width: 100%;
+  text-align: center;
+  line-height: 80rpx;
+  background: #607d8b;
+  scroll-behavior: false;
+}
+
+.tab-item {
+  font-size: 30rpx;
+  display: inline-block;
+  border-bottom: 1rpx solid #777;
+  width: 25%;
+}
+
+.tab-on {
+  color: white;
+  border-bottom: 5rpx solid #40c4ff;
+}
+
+.tab-off {
+  color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
