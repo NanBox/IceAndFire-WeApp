@@ -35,3 +35,7 @@ page {
 .hide {
   display: none;
 }
+
+.content-item {
+  text-align: center;
+}
