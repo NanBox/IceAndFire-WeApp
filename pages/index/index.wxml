@@ -32,3 +32,5 @@
   </view>
 </view>
 <view class="{{currentTab==3?'show':'hide'}}">城堡</view>
+
+<loading hidden="{{hideLoading}}">正在加载</loading>

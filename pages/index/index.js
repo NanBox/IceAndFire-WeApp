@@ -13,7 +13,7 @@ Page({
     var self = this
 
     self.setData({
-      loading: true
+      hideLoading: false
     })
 
     wx.request({
@@ -32,16 +32,16 @@ Page({
           duration: duration
         })
         self.setData({
-          contents: result.data
+          contents: result.data,
+          hideLoading: true
         })
-        loading: false
         console.log('request success', result)
       },
 
       fail: function ({errMsg}) {
         console.log('request fail', errMsg)
         self.setData({
-          loading: false
+          hideLoading: true
         })
       }
     })
