@@ -1,7 +1,7 @@
 /**index.wxss**/
 
 page {
-  background-color: white;
+  background-color: lightgray;
 }
 
 .tab {
@@ -37,5 +37,21 @@ page {
 }
 
 .content-item {
-  text-align: center;
+  background: white;
+  margin: 15rpx;
+  padding: 15rpx;
+}
+
+.content-item-img {
+  width: 100%;
+}
+
+.content-item-name {
+  font-size: 17pt;
+  margin-top: 10rpx;
+}
+
+.content-item-intro {
+  margin-top: 3rpx;
+  font-size: 14pt;
 }

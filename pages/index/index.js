@@ -25,12 +25,6 @@ Page({
 
       },
       success: function (result) {
-        wx.showToast({
-          title: '请求成功',
-          icon: 'success',
-          mask: true,
-          duration: duration
-        })
         self.setData({
           contents: result.data,
           hideLoading: true

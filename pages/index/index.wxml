@@ -9,9 +9,9 @@
 <view class="{{currentTab==0?'show':'hide'}}">
   <view wx:for="{{contents}}">
     <view class="content-item " wx:if="{{item.firstType == 'person'}}">
-      <image src="{{'https://southernbox.github.io/IceAndFireServer'+item.img}}" mode="aspectFit" style="align:center" />
-      <view>{{item.name}}</view>
-      <view>{{item.intro}}</view>
+      <image class="content-item-img" src="{{'https://southernbox.github.io/IceAndFireServer'+item.img}}" mode="widthFix" />
+      <view class="content-item-name">{{item.name}}</view>
+      <view class="content-item-intro">{{item.intro}}</view>
     </view>
   </view>
 </view>
@@ -32,5 +32,4 @@
   </view>
 </view>
 <view class="{{currentTab==3?'show':'hide'}}">城堡</view>
-
 <loading hidden="{{hideLoading}}">正在加载</loading>
