@@ -4,54 +4,86 @@ page {
   background-color: lightgray;
 }
 
-.tab {
-  width: 100%;
-  text-align: center;
-  line-height: 80rpx;
-  background: #607d8b;
-  scroll-behavior: false;
-}
-
-.tab-item {
-  font-size: 30rpx;
-  display: inline-block;
-  border-bottom: 1rpx solid #777;
-  width: 25%;
-}
-
-.tab-on {
-  color: white;
-  border-bottom: 5rpx solid #40c4ff;
-}
-
-.tab-off {
-  color: #ddd;
-}
-
-.show {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
 .content-item {
   background: white;
   margin: 15rpx;
   padding: 15rpx;
 }
 
-.content-item-img {
+.content-item .img {
   width: 100%;
 }
 
-.content-item-name {
+.content-item .name {
   font-size: 17pt;
   margin-top: 10rpx;
 }
 
-.content-item-intro {
+.content-item .intro {
   margin-top: 3rpx;
   font-size: 14pt;
+}
+
+.stv-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.stv-container .tab-bar {
+  position: relative;
+  display: flex;
+  font-size: 30rpx;
+  color: #ddd;
+  background: #607d8b;
+  line-height: 60rpx;
+}
+
+.stv-container .tab-bar .tab-active {
+  color: white;
+}
+
+.stv-container .tab-bar .tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 16rpx;
+  padding-bottom: 20rpx;
+}
+
+.stv-container .tab-bar .under-line {
+  position: absolute;
+  bottom: 0;
+  height: 6rpx;
+  background-color: #40c4ff;
+}
+
+.stv-container .scroll-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #e7eaef;
+}
+
+.stv-container .scroll-view .scroll-view-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+}
+
+.stv-container .scroll-view .scroll-view-wrapper .one-scene {
+  height: 100%;
+}
+
+.one-scene text {
+  display: flex;
+  justify-content: center;
+  padding-top: 200rpx;
+}
+
+.withAnimate {
+  transition: all 100ms ease;
 }

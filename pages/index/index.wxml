@@ -1,16 +1,26 @@
 
 <!--index.wxml-->
-<view class="tab">
-  <view class="tab-item {{currentType=='person' ? 'tab-on' : 'tab-off'}}" id="person" bindtap="swichTab">人物</view>
-  <view class="tab-item {{currentType=='house' ? 'tab-on' : 'tab-off'}}" id="house" bindtap="swichTab">家族</view>
-  <view class="tab-item {{currentType=='history' ? 'tab-on' : 'tab-off'}}" id="history" bindtap="swichTab">历史</view>
-  <view class="tab-item {{currentType=='castle' ? 'tab-on' : 'tab-off'}}" id="castle" bindtap="swichTab">城堡</view>
-</view>
-<view wx:for="{{contents}}" wx:key="{{item.id}}">
-  <view class="content-item " wx:if="{{item.firstType == currentType}}" bindtap="goDetail" data-name="{{item.name}}" data-img="{{item.img}}" data-html="{{item.html}}">
-    <image class="content-item-img" src="{{'https://southernbox.github.io/IceAndFireServer'+item.img}}" mode="widthFix" />
-    <view class="content-item-name">{{item.name}}</view>
-    <view class="content-item-intro">{{item.intro}}</view>
+<view class="stv-container">
+  <view class="tab-bar">
+    <view wx:for="{{tabs}}" wx:key="{{item}}" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'tab-active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      <text>{{item}}</text>
+    </view>
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+  <view class="scroll-view">
+    <view bindtouchstart="handlerStart" catchtouchmove="handlerMove" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+      <view style="width: {{stv.windowWidth}}px;" wx:for="{{types}}" wx:for-item="type" wx:key="unique" class="one-scene">
+        <scroll-view style="height:100%" scroll-y>
+          <view wx:for="{{contents}}" wx:key="{{item.id}}" wx:for-item="item">
+            <view class="content-item " wx:if="{{item.firstType == type}}" bindtap="goDetail" data-name="{{item.name}}" data-img="{{item.img}}" data-html="{{item.html}}">
+              <image class="img" src="{{baseUrl+item.img}}" mode="widthFix" />
+              <view class="name">{{item.name}}</view>
+              <view class="intro">{{item.intro}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
   </view>
 </view>
 <loading hidden="{{hideLoading}}">正在加载</loading>
