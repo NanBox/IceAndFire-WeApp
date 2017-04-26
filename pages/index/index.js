@@ -4,15 +4,15 @@ const duration = 2000
 
 Page({
   data: {
-    currentTab: 0
+    currentType: "person"
   },
   /** 
     * 监听页面加载 
     */
   onLoad: function () {
-    var self = this
+    var that = this
 
-    self.setData({
+    that.setData({
       hideLoading: false
     })
 
@@ -25,16 +25,14 @@ Page({
 
       },
       success: function (result) {
-        self.setData({
+        that.setData({
           contents: result.data,
           hideLoading: true
         })
-        console.log('request success', result)
       },
 
       fail: function ({errMsg}) {
-        console.log('request fail', errMsg)
-        self.setData({
+        that.setData({
           hideLoading: true
         })
       }
@@ -43,13 +41,33 @@ Page({
   /** 
     * 点击tab切换 
     */
-  swichNav: function (e) {
-    if (this.data.currentTab === e.target.dataset.current) {
+  swichTab: function (event) {
+    if (this.data.currentTab == event.currentTarget.id) {
       return false;
     } else {
       this.setData({
-        currentTab: e.target.dataset.current
+        currentType: event.currentTarget.id
       })
     }
+  },
+  /** 
+    * 跳转到详情页面 
+    */
+  goDetail: function (event) {
+    var name = event.currentTarget.dataset.name
+    var img = event.currentTarget.dataset.img
+    var html = event.currentTarget.dataset.html.split(".")[0]
+    wx.navigateTo({
+      url: '../detail/detail?name=' + name + '&img=' + img + '&html=' + html,
+      success: function (res) {
+        // success
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
+      }
+    })
   }
 })

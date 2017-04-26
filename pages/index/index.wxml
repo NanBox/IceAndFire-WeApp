@@ -1,35 +1,16 @@
 
 <!--index.wxml-->
 <view class="tab">
-  <view class="tab-item {{currentTab==0 ? 'tab-on' : 'tab-off'}}" data-current="0" bindtap="swichNav">人物</view>
-  <view class="tab-item {{currentTab==1 ? 'tab-on' : 'tab-off'}}" data-current="1" bindtap="swichNav">家族</view>
-  <view class="tab-item {{currentTab==2 ? 'tab-on' : 'tab-off'}}" data-current="2" bindtap="swichNav">历史</view>
-  <view class="tab-item {{currentTab==3 ? 'tab-on' : 'tab-off'}}" data-current="3" bindtap="swichNav">城堡</view>
+  <view class="tab-item {{currentType=='person' ? 'tab-on' : 'tab-off'}}" id="person" bindtap="swichTab">人物</view>
+  <view class="tab-item {{currentType=='house' ? 'tab-on' : 'tab-off'}}" id="house" bindtap="swichTab">家族</view>
+  <view class="tab-item {{currentType=='history' ? 'tab-on' : 'tab-off'}}" id="history" bindtap="swichTab">历史</view>
+  <view class="tab-item {{currentType=='castle' ? 'tab-on' : 'tab-off'}}" id="castle" bindtap="swichTab">城堡</view>
 </view>
-<view class="{{currentTab==0?'show':'hide'}}">
-  <view wx:for="{{contents}}">
-    <view class="content-item " wx:if="{{item.firstType == 'person'}}">
-      <image class="content-item-img" src="{{'https://southernbox.github.io/IceAndFireServer'+item.img}}" mode="widthFix" />
-      <view class="content-item-name">{{item.name}}</view>
-      <view class="content-item-intro">{{item.intro}}</view>
-    </view>
+<view wx:for="{{contents}}">
+  <view class="content-item " wx:if="{{item.firstType == currentType}}" bindtap="goDetail" data-name="{{item.name}}" data-img="{{item.img}}" data-html="{{item.html}}">
+    <image class="content-item-img" src="{{'https://southernbox.github.io/IceAndFireServer'+item.img}}" mode="widthFix" />
+    <view class="content-item-name">{{item.name}}</view>
+    <view class="content-item-intro">{{item.intro}}</view>
   </view>
 </view>
-<view class="{{currentTab==1?'show':'hide'}}">
-  <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
-    <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="j">
-      <view wx:if="{{i <= j}}">
-        {{i}} * {{j}} = {{i * j}}
-      </view>
-    </view>
-  </view>
-</view>
-<view class="{{currentTab==2?'show':'hide'}}">
-  <view class="flex-wrp" style="flex-direction:row;">
-    <view class="flex-item bc_green">1</view>
-    <view class="flex-item bc_red">2</view>
-    <view class="flex-item bc_blue">3</view>
-  </view>
-</view>
-<view class="{{currentTab==3?'show':'hide'}}">城堡</view>
 <loading hidden="{{hideLoading}}">正在加载</loading>
