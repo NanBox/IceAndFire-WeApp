@@ -4,27 +4,7 @@ page {
   background-color: lightgray;
 }
 
-.content-item {
-  background: white;
-  margin: 15rpx;
-  padding: 15rpx;
-}
-
-.content-item .img {
-  width: 100%;
-}
-
-.content-item .name {
-  font-size: 17pt;
-  margin-top: 10rpx;
-}
-
-.content-item .intro {
-  margin-top: 3rpx;
-  font-size: 14pt;
-}
-
-.stv-container {
+.root {
   position: fixed;
   top: 0;
   left: 0;
@@ -32,56 +12,63 @@ page {
   bottom: 0;
 }
 
-.stv-container .tab-bar {
+.tab-bar {
   position: relative;
   display: flex;
-  font-size: 30rpx;
+  font-size: 13pt;
   color: #ddd;
   background: #607d8b;
-  line-height: 60rpx;
+  line-height: 80rpx;
 }
 
-.stv-container .tab-bar .tab-active {
-  color: white;
-}
-
-.stv-container .tab-bar .tab {
+.tab-bar .tab {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 16rpx;
-  padding-bottom: 20rpx;
 }
 
-.stv-container .tab-bar .under-line {
+.tab-bar .active {
+  color: white;
+}
+
+.tab-bar .under-line {
   position: absolute;
   bottom: 0;
-  height: 6rpx;
+  height: 4rpx;
   background-color: #40c4ff;
 }
 
-.stv-container .scroll-view {
+.scroll-view {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #e7eaef;
 }
 
-.stv-container .scroll-view .scroll-view-wrapper {
+.scroll-view .scroll-view-wrapper {
   position: absolute;
   top: 0;
   bottom: 0;
   display: flex;
 }
 
-.stv-container .scroll-view .scroll-view-wrapper .one-scene {
-  height: 100%;
+.item {
+  background: white;
+  margin: 15rpx;
+  padding: 15rpx;
 }
 
-.one-scene text {
-  display: flex;
-  justify-content: center;
-  padding-top: 200rpx;
+.item .img {
+  width: 100%;
+}
+
+.item .name {
+  font-size: 17pt;
+  margin-top: 10rpx;
+}
+
+.item .intro {
+  margin-top: 3rpx;
+  font-size: 14pt;
 }
 
 .withAnimate {
