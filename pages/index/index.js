@@ -99,17 +99,17 @@ Page({
   },
   onTouchDown(e) {
     let {clientX, clientY} = e.touches[0];
-    this.startX = clientX;
-    this.tapStartX = clientX;
-    this.tapStartY = clientY;
-    this.tapStartTime = e.timeStamp;
+    this.lastX = clientX;
+    this.downX = clientX;
+    this.downY = clientY;
+    this.startTime = e.timeStamp;
     this.setData({ isDrag: true })
   },
-  onTouchMove(e) {
-    let {clientX, clientY} = e.touches[0];
+  onTouchMove(event) {
+    let {clientX, clientY} = event.touches[0];
     let {offset} = this.data;
-    let offsetX = this.startX - clientX;
-    this.startX = clientX;
+    let offsetX = this.lastX - clientX;
+    this.lastX = clientX;
     offset += offsetX;
     if (offset <= 0) {
       offset = 0;
@@ -118,32 +118,24 @@ Page({
     }
     this.setData({ offset: offset });
   },
-  onTouchUp(e) {
-    let {clientX, clientY} = e.changedTouches[0];
-    let endTime = e.timeStamp;
+  onTouchUp(event) {
+    let {clientX, clientY} = event.changedTouches[0];
+    let endTime = event.timeStamp;
     let {offset, windowWidth, activeTab} = this.data;
     //快速滑动
-    if (endTime - this.tapStartTime <= 300) {
-      //向左
-      if (Math.abs(this.tapStartY - clientY) < 50) {
-        if (this.tapStartX - clientX > 5) {
-          if (activeTab < this.tabsCount - 1) {
-            this.setData({ activeTab: ++activeTab })
-          }
-        } else {
-          if (activeTab > 0) {
-            this.setData({ activeTab: --activeTab })
-          }
+    if (endTime - this.startTime <= 300 && Math.abs(this.downY - clientY) < 50) {
+      if (this.downX - clientX > 10) {
+        //向左滑动
+        if (activeTab < this.tabsCount - 1) {
+          this.setData({ activeTab: ++activeTab })
         }
-        offset = windowWidth * activeTab;
-      } else {
-        //快速滑动 但是Y距离大于50 所以用户是左右滚动
-        let page = Math.round(offset / windowWidth);
-        if (activeTab != page) {
-          this.setData({ activeTab: page })
+      } else if (this.downX - clientX < -10) {
+        //向右滑动
+        if (activeTab > 0) {
+          this.setData({ activeTab: --activeTab })
         }
-        offset = windowWidth * page;
       }
+      offset = windowWidth * activeTab;
     } else {
       let page = Math.round(offset / windowWidth);
       if (activeTab != page) {
@@ -163,7 +155,7 @@ Page({
       offset: that.data.windowWidth * page
     })
   },
-  handlerTabTap(e) {
+  onTabClick(e) {
     this._updateSelectedPage(e.currentTarget.dataset.index);
   }
 })

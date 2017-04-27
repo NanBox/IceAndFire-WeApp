@@ -2,7 +2,7 @@
 <!--index.wxml-->
 <view class="root">
   <view class="tab-bar">
-    <view wx:for="{{tabs}}" wx:key="{{item}}" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'active':''}}" style="width: {{tabWidth}}px">
+    <view wx:for="{{tabs}}" wx:key="{{item}}" data-index="{{index}}" bindtap="onTabClick" class="tab {{activeTab==index?'active':''}}" style="width: {{tabWidth}}px">
       <text>{{item}}</text>
     </view>
     <view style="width: {{tabWidth}}px; left: {{offset/tabs.length}}px" class="under-line {{!isDrag? 'withAnimate': ''}}"></view>
