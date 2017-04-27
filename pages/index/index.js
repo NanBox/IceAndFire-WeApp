@@ -4,17 +4,21 @@ const duration = 2000
 
 Page({
   data: {
+    baseUrl: "https://southernbox.github.io/IceAndFireServer/",
     tabs: ['人物', '家族', '历史', '城堡'],
     types: ['person', 'house', 'history', 'castle'],
-    baseUrl: "https://southernbox.github.io/IceAndFireServer/",
+    //当前选中的 tab
+    activeTab: 0,
+    //当前选中的类型
     currentType: "person",
-    stv: {
-      windowWidth: 0,
-      lineWidth: 0,
-      offset: 0,
-      tStart: false
-    },
-    activeTab: 0
+    //屏幕宽度
+    windowWidth: 0,
+    //单个 tab 宽度
+    tabWidth: 0,
+    //偏移量
+    offset: 0,
+    //是否拖拽中
+    isDrag: false
   },
   /** 
     * 监听页面加载 
@@ -23,19 +27,22 @@ Page({
     var that = this
 
     that.setData({
+      //显示加载提示框
       hideLoading: false
     })
 
-    try {
-      var res = wx.getSystemInfoSync()
-      this.windowWidth = res.windowWidth;
-      this.data.stv.lineWidth = this.windowWidth / this.data.tabs.length;
-      this.data.stv.windowWidth = res.windowWidth;
-      this.setData({ stv: this.data.stv })
-      this.tabsCount = tabs.length;
-    } catch (e) {
-    }
+    that.tabsCount = that.data.tabs.length;
+    var res = wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          //设置屏幕宽度、tab 宽度
+          windowWidth: res.windowWidth,
+          tabWidth: res.windowWidth / that.data.tabs.length
+        })
+      }
+    })
 
+    //请求数据
     wx.request({
       url: url.getContent,
       header: {
@@ -90,36 +97,31 @@ Page({
       }
     })
   },
-  handlerStart(e) {
+  onTouchDown(e) {
     let {clientX, clientY} = e.touches[0];
     this.startX = clientX;
     this.tapStartX = clientX;
     this.tapStartY = clientY;
-    this.data.stv.tStart = true;
     this.tapStartTime = e.timeStamp;
-    this.setData({ stv: this.data.stv })
+    this.setData({ isDrag: true })
   },
-  handlerMove(e) {
+  onTouchMove(e) {
     let {clientX, clientY} = e.touches[0];
-    let {stv} = this.data;
+    let {offset} = this.data;
     let offsetX = this.startX - clientX;
     this.startX = clientX;
-    stv.offset += offsetX;
-    if (stv.offset <= 0) {
-      stv.offset = 0;
-    } else if (stv.offset >= stv.windowWidth * (this.tabsCount - 1)) {
-      stv.offset = stv.windowWidth * (this.tabsCount - 1);
+    offset += offsetX;
+    if (offset <= 0) {
+      offset = 0;
+    } else if (offset >= this.windowWidth * (this.tabsCount - 1)) {
+      offset = this.windowWidth * (this.tabsCount - 1);
     }
-    this.setData({ stv: stv });
+    this.setData({ offset: offset });
   },
-  handlerCancel(e) {
-
-  },
-  handlerEnd(e) {
+  onTouchUp(e) {
     let {clientX, clientY} = e.changedTouches[0];
     let endTime = e.timeStamp;
-    let {tabs, stv, activeTab} = this.data;
-    let {offset, windowWidth} = stv;
+    let {offset, windowWidth, activeTab} = this.data;
     //快速滑动
     if (endTime - this.tapStartTime <= 300) {
       //向左
@@ -133,31 +135,33 @@ Page({
             this.setData({ activeTab: --activeTab })
           }
         }
-        stv.offset = stv.windowWidth * activeTab;
+        offset = windowWidth * activeTab;
       } else {
         //快速滑动 但是Y距离大于50 所以用户是左右滚动
         let page = Math.round(offset / windowWidth);
         if (activeTab != page) {
           this.setData({ activeTab: page })
         }
-        stv.offset = stv.windowWidth * page;
+        offset = windowWidth * page;
       }
     } else {
       let page = Math.round(offset / windowWidth);
       if (activeTab != page) {
         this.setData({ activeTab: page })
       }
-      stv.offset = stv.windowWidth * page;
+      offset = windowWidth * page;
     }
-    stv.tStart = false;
-    this.setData({ stv: this.data.stv })
+    this.setData({
+      isDrag: false,
+      offset: offset
+    })
   },
   _updateSelectedPage(page) {
-    let {tabs, stv, activeTab} = this.data;
-    activeTab = page;
-    this.setData({ activeTab: activeTab })
-    stv.offset = stv.windowWidth * activeTab;
-    this.setData({ stv: this.data.stv })
+    var that = this
+    this.setData({
+      activeTab: page,
+      offset: that.data.windowWidth * page
+    })
   },
   handlerTabTap(e) {
     this._updateSelectedPage(e.currentTarget.dataset.index);

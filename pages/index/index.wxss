@@ -15,7 +15,7 @@ page {
 .tab-bar {
   position: relative;
   display: flex;
-  font-size: 13pt;
+  font-size: 11pt;
   color: #ddd;
   background: #607d8b;
   line-height: 80rpx;
@@ -49,6 +49,7 @@ page {
   top: 0;
   bottom: 0;
   display: flex;
+  margin-bottom: 80rpx;
 }
 
 .item {
