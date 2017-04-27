@@ -9,7 +9,7 @@
   </view>
   <view class="scroll-view">
     <view class="scroll-view-wrapper {{!isDrag? 'withAnimate': ''}}" bindtouchstart="onTouchDown" catchtouchmove="onTouchMove" bindtouchcancel="onTouchUp" bindtouchend="onTouchUp" style="left: -{{offset}}px">
-      <view wx:for="{{types}}" wx:for-item="type" wx:key="{{type}}" style="width: {{windowWidth}}px;">
+      <view wx:for="{{types}}" wx:key="{{type}}" wx:for-item="type" style="width: {{windowWidth}}px;">
         <scroll-view style="height:100%" scroll-y>
           <view wx:for="{{contents}}" wx:key="{{item.id}}" wx:for-item="item">
             <view class="item " wx:if="{{item.firstType == type}}" bindtap="goDetail" data-name="{{item.name}}" data-img="{{item.img}}" data-html="{{item.html}}">
