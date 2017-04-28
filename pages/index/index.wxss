@@ -56,6 +56,8 @@ page {
   background: white;
   margin: 15rpx;
   padding: 15rpx;
+  border-radius: 5rpx;
+  overflow: hidden;
 }
 
 .item .img {
