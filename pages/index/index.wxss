@@ -75,5 +75,5 @@ page {
 }
 
 .withAnimate {
-  transition: all 100ms ease;
+  transition: 100ms;
 }
